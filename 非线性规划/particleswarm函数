@@ -1,0 +1,43 @@
+在MATLAB中，particleswarm 函数是用于执行粒子群优化（Particle Swarm Optimization, PSO）的，它是一种基于群体智能的优化算法。
+这个函数可以用来解决具有线性和非线性约束的优化问题。
+以下是如何使用 particleswarm 函数的一些关键步骤和参数设置：
+
+定义目标函数：首先，你需要定义一个目标函数，该函数接受一个向量作为输入（代表决策变量）并返回一个标量值，表示该点的目标函数值。
+
+设置变量的数量：确定你的优化问题中有多少个决策变量。
+
+定义变量的上下界：为每个决策变量定义上下界，这可以通过向量 lb 和 ub 来实现。
+
+设置算法选项：使用 optimoptions 函数来设置 particleswarm 的参数，如粒子数量、惯性权重、学习因子等。
+
+调用 particleswarm 函数：使用上述定义的目标函数、变量数量、上下界和选项来调用 particleswarm 函数。
+
+获取结果：particleswarm 函数将返回最优解向量和最优目标函数值。
+
+以下是一个使用 particleswarm 函数的示例代码：
+
+% 定义目标函数
+fun = @(x) (x(1)-1)^2 + (x(2)-2)^2;
+
+% 定义变量的数量
+nvars = 2;
+
+% 定义变量的上下界
+lb = [-10, -10];  % 下界
+ub = [10, 10];     % 上界
+
+% 设置算法选项
+options = optimoptions('particleswarm', 'SwarmSize', 50, 'HybridFcn', @fmincon);
+
+% 调用 particleswarm 函数
+[x, fval] = particleswarm(fun, nvars, lb, ub, options);
+
+% 显示结果
+disp('最优解:');
+disp(x);
+disp('目标函数的最优值:');
+disp(fval);
+
+在这个例子中，我们定义了一个简单的二维优化问题，并使用 particleswarm 函数来找到它的最小值。我们设置了粒子群的大小，并在算法结束后使用 fmincon 函数进行混合求解，以进一步提高解的质量。
+
+请注意，particleswarm 函数的参数设置和目标函数的定义将取决于你的具体问题。你可以根据需要调整这些参数，以获得最佳的优化结果。
